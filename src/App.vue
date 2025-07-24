@@ -7,7 +7,7 @@ import GameOverModal from './components/GameOverModal.vue';
 import { computed, reactive, ref } from 'vue';
 const winDialog = ref<InstanceType<typeof GameOverModal>>();
 const loseDialog = ref<InstanceType<typeof GameOverModal>>();
-const highscore = localStorage.getItem('highscore') ?? 0;
+let highscore: number = Number(localStorage.getItem('highscore')) ?? 0;
 const newhighscore = ref<boolean>(false);
 interface Target {
   [key: string]: number
@@ -52,6 +52,7 @@ const left = computed(() => {
 })
 
 function initGame() {
+  highscore = Number(localStorage.getItem('highscore')) ?? 0;
   newhighscore.value = false;
   gameover.value = false;
   round.value = round.value + 1;
