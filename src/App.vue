@@ -6,6 +6,11 @@ import GameOverModal from './components/GameOverModal.vue';
 
 import { computed, reactive, ref } from 'vue';
 import WaterRipples from './components/WaterRipples.vue';
+const config = reactive({
+  shake: true,
+  vibrate: true,
+  animate: true
+})
 const winDialog = ref<InstanceType<typeof GameOverModal>>();
 const loseDialog = ref<InstanceType<typeof GameOverModal>>();
 let highscore: number = Number(localStorage.getItem('highscore')) ?? 0;
@@ -160,8 +165,12 @@ function pickOrientation() {
 }
 
 function hit(name: string) {
-  navigator.vibrate(200);
-  shake.value = true;
+  if (config.vibrate) {
+    navigator.vibrate(200);
+  }
+  if (config.shake) {
+    shake.value = true;
+  }
   setTimeout(() => {
     shake.value = false;
     ammo.value = ammo.value - 1;
@@ -218,13 +227,13 @@ function showSquids() {
         <div id="squid2" :style="{ 'grid-area': displays.squid2 }"></div>
         <div id="squid3" :style="{ 'grid-area': displays.squid3 }"></div>
       </div>
-      <WaterRipples />
+      <WaterRipples :animate="config.animate" />
     </div>
     <div id="sq">
       <TargetDisplay :targets="displayTargets" />
       <p v-if="highscore">High Score: {{ highscore }}</p>
     </div>
-  </div>`
+  </div>
   <GameOverModal ref="winDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
     <h1 style="text-align: center;">You Win!</h1>
     <p v-if="newhighscore">New High Score: {{ ammo }}</p>

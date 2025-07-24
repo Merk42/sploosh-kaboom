@@ -1,5 +1,13 @@
+<script setup lang="ts">
+const props = defineProps({
+    animate: {
+        type: Boolean,
+        default: true,
+    }
+});
+</script>
 <template>
-    <svg class="svg">
+    <svg class="svg" v-if="animate">
         <filter id="warp">
             <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="1" result="waves"></feTurbulence>
             <feColorMatrix in="waves" type="hueRotate">
