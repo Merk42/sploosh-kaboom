@@ -5,6 +5,7 @@ import TargetDisplay from './components/TargetDisplay.vue';
 import GameOverModal from './components/GameOverModal.vue';
 
 import { computed, reactive, ref } from 'vue';
+import WaterRipples from './components/WaterRipples.vue';
 const winDialog = ref<InstanceType<typeof GameOverModal>>();
 const loseDialog = ref<InstanceType<typeof GameOverModal>>();
 let highscore: number = Number(localStorage.getItem('highscore')) ?? 0;
@@ -204,7 +205,7 @@ function showSquids() {
     <div id="ammo">
       <AmmoDisplay :total="defaultAmmo" :remaining="ammo" />
     </div>
-    <div id="container">
+    <div id="container" style="position: relative;">
       <div class="board" :class="{ 'gameover': gameover }">
         <template v-for="y in boardSize">
           <template v-for="x in boardSize">
@@ -217,6 +218,7 @@ function showSquids() {
         <div id="squid2" :style="{ 'grid-area': displays.squid2 }"></div>
         <div id="squid3" :style="{ 'grid-area': displays.squid3 }"></div>
       </div>
+      <WaterRipples />
     </div>
     <div id="sq">
       <TargetDisplay :targets="displayTargets" />
@@ -246,13 +248,27 @@ function showSquids() {
 }
 
 @media (orientation: landscape) {
-  .board {
-    max-height: 100dvh;
+
+  .board,
+  #container {
+    max-height: calc(100dvh - calc(var(--_border)*2));
   }
 }
 
 #container {
+  --_border: 8px;
   display: grid;
+  aspect-ratio: 1;
+  margin: var(--_border)
+}
+
+#container::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: calc(var(--_border) * -1);
+  border: calc(var(--_border) * 2) solid brown;
+  z-index: -1;
 }
 
 #squids {
