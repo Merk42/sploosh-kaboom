@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   version="1.1"
+   id="svg1"
+   width="88"
+   height="88"
+   viewBox="0 0 88 88"
+   sodipodi:docname="target.svg"
+   inkscape:version="1.4.2 (2aeb623e1d, 2025-05-12)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="10.045455"
+     inkscape:cx="44"
+     inkscape:cy="44"
+     inkscape:window-width="1854"
+     inkscape:window-height="1131"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g1" />
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Image"
+     id="g1"
+     style="display:inline">
+    <path
+       style="display:inline;fill:none;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="M 44.298643,46.289593 35.140271,83.122172 H 53.257919 Z"
+       id="path2"
+       inkscape:label="trianglebg" />
+    <ellipse
+       style="display:inline;fill:#a9a9bc;fill-opacity:0;stroke:#000000;stroke-width:12;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="ellipse1"
+       cx="44.497738"
+       cy="43.153847"
+       rx="37.190384"
+       ry="35.877193" />
+    <ellipse
+       style="display:inline;fill:#a9a9bc;fill-opacity:0;stroke:#ffffff;stroke-width:6;stroke-linecap:square;stroke-miterlimit:0;stroke-dasharray:none;stroke-opacity:1"
+       id="path1"
+       cx="44.497738"
+       cy="43.153847"
+       rx="37.190384"
+       ry="35.877193" />
+    <path
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 44.298643,46.289593 35.140271,83.122172 H 53.257919 Z"
+       id="path3"
+       inkscape:label="triangle" />
+  </g>
+</svg>
