@@ -3,7 +3,7 @@ import AmmoDisplay from './components/AmmoDisplay.vue';
 import SKButton from './components/SKButton.vue';
 import TargetDisplay from './components/TargetDisplay.vue';
 
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, reactive, ref } from 'vue';
 
 interface Target {
   [key: string]: number
@@ -157,13 +157,29 @@ function hit(name: string) {
   shake.value = true;
   setTimeout(() => {
     shake.value = false;
+    ammo.value = ammo.value - 1;
+    targets[name] = targets[name] - 1;
+    if (left.value === 0) {
+      gameEnd('win');
+    }
   }, 300);
-  ammo.value = ammo.value - 1;
-  targets[name] = targets[name] - 1;
 }
 
 function miss() {
   ammo.value = ammo.value - 1;
+  if (ammo.value === 0) {
+    // YOU LOSE
+    gameEnd('lose')
+  }
+}
+
+function gameEnd(result: 'win' | 'lose') {
+  showSquids();
+  if (result === 'win') {
+    alert("YOU WIN");
+  } else {
+    alert("YOU LOSE");
+  }
 }
 
 initGame()
@@ -171,23 +187,6 @@ initGame()
 function showSquids() {
   gameover.value = true;
 }
-
-watch(left, async (newQuestion, oldQuestion) => {
-  if (newQuestion <= 0) {
-    showSquids();
-    console.log("YOU WIN")
-    alert("YOU WIN"); // Code execution pauses here
-    // initGame()
-  }
-})
-watch(ammo, async (newQuestion, oldQuestion) => {
-  if (newQuestion <= 0 && left.value > 0) {
-    showSquids()
-    console.log("YOU LOSE")
-    alert("YOU LOSE"); // Code execution pauses here
-    // initGame()
-  }
-})
 </script>
 
 <template>
