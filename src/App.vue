@@ -7,7 +7,8 @@ import GameOverModal from './components/GameOverModal.vue';
 import { computed, reactive, ref } from 'vue';
 const winDialog = ref<InstanceType<typeof GameOverModal>>();
 const loseDialog = ref<InstanceType<typeof GameOverModal>>();
-
+const highscore = localStorage.getItem('highscore') ?? 0;
+const newhighscore = ref<boolean>(false);
 interface Target {
   [key: string]: number
 }
@@ -51,6 +52,7 @@ const left = computed(() => {
 })
 
 function initGame() {
+  newhighscore.value = false;
   gameover.value = false;
   round.value = round.value + 1;
   targets.squid1 = 2;
@@ -162,7 +164,7 @@ function hit(name: string) {
     shake.value = false;
     ammo.value = ammo.value - 1;
     targets[name] = targets[name] - 1;
-    if (left.value === 0) {
+    if (left.value <= 0) {
       gameEnd('win');
     }
   }, 300);
@@ -170,7 +172,7 @@ function hit(name: string) {
 
 function miss() {
   ammo.value = ammo.value - 1;
-  if (ammo.value === 0) {
+  if (ammo.value <= 0) {
     // YOU LOSE
     gameEnd('lose')
   }
@@ -179,10 +181,12 @@ function miss() {
 function gameEnd(result: 'win' | 'lose') {
   showSquids();
   if (result === 'win') {
+    if (ammo.value > Number(highscore)) {
+      newhighscore.value = true;
+      localStorage.setItem('highscore', ammo.value.toString());
+    }
     winDialog.value?.show();
-    // alert("YOU WIN");
   } else {
-    // alert("YOU LOSE");
     loseDialog.value?.show();
   }
 }
@@ -208,17 +212,20 @@ function showSquids() {
         </template>
       </div>
       <div class="board" id="squids" v-if="gameover">
-        <div id="squid1" :style="{ 'grid-area': gameover ? displays.squid1 : '' }"></div>
-        <div id="squid2" :style="{ 'grid-area': gameover ? displays.squid2 : '' }"></div>
-        <div id="squid3" :style="{ 'grid-area': gameover ? displays.squid3 : '' }"></div>
+        <div id="squid1" :style="{ 'grid-area': displays.squid1 }"></div>
+        <div id="squid2" :style="{ 'grid-area': displays.squid2 }"></div>
+        <div id="squid3" :style="{ 'grid-area': displays.squid3 }"></div>
       </div>
     </div>
     <div id="sq">
       <TargetDisplay :targets="displayTargets" />
+      <p v-if="highscore">High Score: {{ highscore }}</p>
     </div>
   </div>`
   <GameOverModal ref="winDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
     <h1 style="text-align: center;">You Win!</h1>
+    <p v-if="newhighscore">New High Score: {{ ammo }}</p>
+    <p v-if="ammo === 15">PERFECT!</p>
   </GameOverModal>
   <GameOverModal ref="loseDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
     <h1 style="text-align: center;">You Lose!</h1>
