@@ -16,13 +16,18 @@
 
 </template>
 <style scoped>
+.svg,
+.image {
+    pointer-events: none;
+}
+
 .svg {
     position: absolute;
 }
 
 .image {
     filter: url(#warp);
-    background-image: url('./water.png');
+    background-image: url('/water.png');
     background-color: #146aff;
     background-size: 20%;
     position: absolute;
