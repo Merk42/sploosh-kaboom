@@ -2,8 +2,11 @@
 import AmmoDisplay from './components/AmmoDisplay.vue';
 import SKButton from './components/SKButton.vue';
 import TargetDisplay from './components/TargetDisplay.vue';
+import GameOverModal from './components/GameOverModal.vue';
 
 import { computed, reactive, ref } from 'vue';
+const winDialog = ref<InstanceType<typeof GameOverModal>>();
+const loseDialog = ref<InstanceType<typeof GameOverModal>>();
 
 interface Target {
   [key: string]: number
@@ -176,9 +179,11 @@ function miss() {
 function gameEnd(result: 'win' | 'lose') {
   showSquids();
   if (result === 'win') {
-    alert("YOU WIN");
+    winDialog.value?.show();
+    // alert("YOU WIN");
   } else {
-    alert("YOU LOSE");
+    // alert("YOU LOSE");
+    loseDialog.value?.show();
   }
 }
 
@@ -212,10 +217,12 @@ function showSquids() {
       <TargetDisplay :targets="displayTargets" />
     </div>
   </div>`
-
-
-
-  <button @click="initGame()">new game</button>
+  <GameOverModal ref="winDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
+    <h1 style="text-align: center;">You Win!</h1>
+  </GameOverModal>
+  <GameOverModal ref="loseDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
+    <h1 style="text-align: center;">You Lose!</h1>
+  </GameOverModal>
 </template>
 
 <style scoped>
