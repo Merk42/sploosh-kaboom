@@ -40,6 +40,12 @@ const props = defineProps({
     background-size: 20%;
     position: absolute;
     inset: 0;
-    z-index: -1;
+    z-index: -2;
+}
+
+@media (prefers-color-scheme: dark) {
+    .image {
+        background-color: darkblue;
+    }
 }
 </style>
