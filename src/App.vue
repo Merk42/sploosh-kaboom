@@ -11,12 +11,8 @@ import sploosh from '/sploosh.wav';
 import kaboom from '/kaboom.wav';
 import SettingsConfig from './components/SettingsConfig.vue';
 
-interface Config {
-  shake: boolean;
-  vibrate: boolean;
-  animate: boolean;
-  sound: boolean
-}
+import type { Config, Target, Display } from '@/types';
+import SquidHints from './components/SquidHints.vue';
 
 const splooshAudio = new Audio(sploosh);
 const kaboomAudio = new Audio(kaboom);
@@ -31,12 +27,7 @@ const winDialog = ref<InstanceType<typeof GameOverModal>>();
 const loseDialog = ref<InstanceType<typeof GameOverModal>>();
 let highscore: number = Number(localStorage.getItem('highscore')) ?? 0;
 const newhighscore = ref<boolean>(false);
-interface Target {
-  [key: string]: number
-}
-interface Display {
-  [key: string]: string
-}
+
 const shake = ref<boolean>(false);
 const round = ref(0);
 const boardSize = 8;
@@ -243,6 +234,7 @@ function loadConfig() {
   }
 }
 
+loadConfig()
 initGame()
 
 function showSquids() {
@@ -264,9 +256,7 @@ function showSquids() {
         </template>
       </div>
       <div class="board" id="squids" v-if="gameover">
-        <div id="squid1" :style="{ 'grid-area': displays.squid1 }"></div>
-        <div id="squid2" :style="{ 'grid-area': displays.squid2 }"></div>
-        <div id="squid3" :style="{ 'grid-area': displays.squid3 }"></div>
+        <SquidHints :displays="displays" />
       </div>
       <WaterRipples :animate="config.animate" />
     </div>
@@ -319,7 +309,8 @@ function showSquids() {
   position: absolute;
   inset: calc(var(--_border) * -1);
   border: calc(var(--_border) * 2) solid brown;
-  z-index: -1;
+  z-index: 0;
+  pointer-events: none;
 }
 
 #squids {
@@ -338,43 +329,6 @@ function showSquids() {
 .board.gameover {
   pointer-events: none;
 }
-
-#squid1,
-#squid2,
-#squid3 {
-  /*background-image: url('/gridsquid.png'); */
-  background-size: cover;
-  position: relative;
-}
-
-/*
-#squid1::before,
-#squid2::before,
-#squid3::before {
-  content: "";
-  background-image: url('/gridsquid.png');
-  inset: 0;
-  position: absolute;
-  background-size: contain;
-}
-
-#squid2::before {
-  transform: rotateX(90deg)
-}
-*/
-
-#squid1 {
-  background-color: green;
-}
-
-#squid2 {
-  background-color: yellow;
-}
-
-#squid3 {
-  background-color: red;
-}
-
 
 #game.kaboom {
   animation: tilt-n-move-shaking 0.1s linear;

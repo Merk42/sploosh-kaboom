@@ -45,7 +45,7 @@ span {
     border: 0;
     /* height: 10ch; */
     place-content: center;
-    border: 1px solid Canvas;
+    border: 1px solid rgba(255, 255, 255, .5);
 
 }
 

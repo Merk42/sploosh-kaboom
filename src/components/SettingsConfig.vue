@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Config } from '@/types';
 import GameOverModal from './GameOverModal.vue';
 import { reactive, ref } from 'vue';
 const emit = defineEmits(['save']);
@@ -11,7 +12,7 @@ const props = defineProps<{
     }
 }>();
 const configDialog = ref<InstanceType<typeof GameOverModal>>();
-const settings = reactive({
+const settings = reactive<Config>({
     shake: true,
     vibrate: true,
     animate: true,

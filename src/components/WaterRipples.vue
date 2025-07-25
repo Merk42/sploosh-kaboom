@@ -46,6 +46,7 @@ const props = defineProps({
 @media (prefers-color-scheme: dark) {
     .image {
         background-color: darkblue;
+        opacity: .75;
     }
 }
 </style>
