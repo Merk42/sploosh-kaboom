@@ -41,9 +41,9 @@ function cancelChanges() {
     <button @click="openSettings()">open settings</button>
     <GameOverModal ref="configDialog" :confirm-text="'save'" :show-cancel="true" @confirm="saveChanges()"
         @cancel="cancelChanges()">
-        <label><input type="checkbox" v-model="settings.shake" /> shake</label>
-        <label><input type="checkbox" v-model="settings.vibrate" /> vibrate</label>
-        <label><input type="checkbox" v-model="settings.animate" /> animate</label>
+        <label><input type="checkbox" v-model="settings.shake" /> shake screen on hit</label>
+        <label><input type="checkbox" v-model="settings.vibrate" /> vibrate device on hit</label>
+        <label><input type="checkbox" v-model="settings.animate" /> animated water</label>
         <label><input type="checkbox" v-model="settings.sound" /> sound</label>
     </GameOverModal>
 </template>

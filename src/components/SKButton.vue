@@ -59,6 +59,12 @@ span {
     background-size: contain;
 }
 
+@media (prefers-color-scheme: dark) {
+    .sploosh {
+        filter: brightness(1.5)
+    }
+}
+
 button:hover {
     cursor: pointer;
 }
