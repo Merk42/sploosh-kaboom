@@ -23,12 +23,13 @@ function orientFromGrid(grid: string): string {
     <div id="squid1" :style="{ 'grid-area': displays.squid1 }" :class="orientations.squid1"></div>
     <div id="squid2" :style="{ 'grid-area': displays.squid2 }" :class="orientations.squid2"></div>
     <div id="squid3" :style="{ 'grid-area': displays.squid3 }" :class="orientations.squid3"></div>
+    <img class="imgsvg" src="/gridsquid-v.svg" />
 </template>
 <style scoped>
 #squid1,
 #squid2,
 #squid3 {
-    background-image: url('/gridsquid.png');
+    background-image: url('/gridsquid-v.svg');
     background-size: 100% 100%;
     position: relative;
 }
@@ -36,6 +37,22 @@ function orientFromGrid(grid: string): string {
 #squid1.h,
 #squid2.h,
 #squid3.h {
-    background-image: url('/gridsquid-h.png');
+    background-image: url('/gridsquid-h.svg');
+}
+
+#squid2.v {
+    transform: scaleY(1.5);
+}
+
+#squid3.v {
+    transform: scaleY(2);
+}
+
+#squid2.h {
+    transform: scaleX(1.5);
+}
+
+#squid3.h {
+    transform: scaleX(2);
 }
 </style>

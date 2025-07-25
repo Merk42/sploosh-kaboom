@@ -25,6 +25,7 @@ const props = defineProps<{
 }
 
 .dead {
+    /* brightness(0.45) saturate(10) hue-rotate(130deg) */
     background-image: url('/defeated.svg');
 }
 </style>
