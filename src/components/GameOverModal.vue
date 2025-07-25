@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import CommonButton from './CommonButton.vue';
 
 const dialog = ref<HTMLDialogElement>();
 
@@ -63,12 +64,13 @@ defineExpose({
             <div class="modal-action" v-if="!props.hideConfirm || props.showCancel">
                 <slot name="footer" />
                 <slot name="actionButtons">
-                    <button v-if="props.showCancel" value="false" class="btn" @click.prevent="cancel">
+                    <CommonButton v-if="props.showCancel" value="false" class="btn" @click.prevent="cancel">
                         {{ props.cancelText }}
-                    </button>
-                    <button v-if="!props.hideConfirm" value="true" class="btn btn-primary" @click.prevent="confirm">
+                    </CommonButton>
+                    <CommonButton v-if="!props.hideConfirm" value="true" class="btn btn-primary"
+                        @click.prevent="confirm">
                         {{ props.confirmText }}
-                    </button>
+                    </CommonButton>
                 </slot>
             </div>
         </form>

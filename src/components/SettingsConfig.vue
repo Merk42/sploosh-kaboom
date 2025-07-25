@@ -2,6 +2,7 @@
 import type { Config } from '@/types';
 import GameOverModal from './GameOverModal.vue';
 import { reactive, ref } from 'vue';
+import CommonButton from './CommonButton.vue';
 const emit = defineEmits(['save']);
 const props = defineProps<{
     settings: {
@@ -39,7 +40,7 @@ function cancelChanges() {
 }
 </script>
 <template>
-    <button @click="openSettings()">open settings</button>
+    <CommonButton @click="openSettings()">open settings</CommonButton>
     <GameOverModal ref="configDialog" :confirm-text="'save'" :show-cancel="true" @confirm="saveChanges()"
         @cancel="cancelChanges()">
         <label><input type="checkbox" v-model="settings.shake" /> shake screen on hit</label>
