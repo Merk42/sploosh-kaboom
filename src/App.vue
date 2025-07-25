@@ -247,22 +247,26 @@ function showSquids() {
     <div id="ammo">
       <AmmoDisplay :total="defaultAmmo" :remaining="ammo" />
     </div>
-    <div id="container" style="position: relative;">
-      <div class="board" :class="{ 'gameover': gameover }">
-        <template v-for="y in boardSize">
-          <template v-for="x in boardSize">
-            <SKButton :map="myReactiveMap" :x="x" :y="y" :round="round" @kaboom="hit" @sploosh="miss" />
+    <div id="gameboard">
+      <div id="highscore">
+        <p v-if="highscore">High Score: <span>{{ highscore }}</span></p>
+      </div>
+      <div id="container" style="position: relative;">
+        <div class="board" :class="{ 'gameover': gameover }">
+          <template v-for="y in boardSize">
+            <template v-for="x in boardSize">
+              <SKButton :map="myReactiveMap" :x="x" :y="y" :round="round" @kaboom="hit" @sploosh="miss" />
+            </template>
           </template>
-        </template>
+        </div>
+        <div class="board" id="squids" v-if="gameover">
+          <SquidHints :displays="displays" />
+        </div>
+        <WaterRipples :animate="config.animate" />
       </div>
-      <div class="board" id="squids" v-if="gameover">
-        <SquidHints :displays="displays" />
-      </div>
-      <WaterRipples :animate="config.animate" />
     </div>
     <div id="sq">
       <TargetDisplay :targets="displayTargets" />
-      <p v-if="highscore">High Score: {{ highscore }}</p>
       <SettingsConfig :settings="config" @save="updateConfig" />
     </div>
   </div>
@@ -277,7 +281,15 @@ function showSquids() {
 </template>
 
 <style scoped>
+#highscore {
+  height: var(--_highscoreheight);
+  text-align: right;
+  font-size: 1.5rem;
+}
+
+
 #game {
+  --_highscoreheight: 50px;
   display: grid;
   grid-template-columns: 150px auto auto;
   gap: .5rem;
@@ -293,7 +305,7 @@ function showSquids() {
 
   .board,
   #container {
-    max-height: calc(100dvh - calc(var(--_border)*2));
+    max-height: calc(100dvh - calc(var(--_border)*2) - var(--_highscoreheight));
   }
 }
 
