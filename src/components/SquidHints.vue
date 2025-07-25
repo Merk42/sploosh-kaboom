@@ -23,7 +23,6 @@ function orientFromGrid(grid: string): string {
     <div id="squid1" :style="{ 'grid-area': displays.squid1 }" :class="orientations.squid1"></div>
     <div id="squid2" :style="{ 'grid-area': displays.squid2 }" :class="orientations.squid2"></div>
     <div id="squid3" :style="{ 'grid-area': displays.squid3 }" :class="orientations.squid3"></div>
-    <img class="imgsvg" src="/gridsquid-v.svg" />
 </template>
 <style scoped>
 #squid1,
