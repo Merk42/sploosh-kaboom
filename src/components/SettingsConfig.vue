@@ -40,7 +40,7 @@ function cancelChanges() {
 }
 </script>
 <template>
-    <CommonButton @click="openSettings()">open settings</CommonButton>
+    <CommonButton @click="openSettings()">settings</CommonButton>
     <GameOverModal ref="configDialog" :confirm-text="'save'" :show-cancel="true" @confirm="saveChanges()"
         @cancel="cancelChanges()">
         <label><input type="checkbox" v-model="settings.shake" /> shake screen on hit</label>

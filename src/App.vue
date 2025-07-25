@@ -279,7 +279,8 @@ function showSquids() {
 <style scoped>
 #game {
   display: grid;
-  grid-template-columns: 150px auto 75px;
+  grid-template-columns: 150px auto auto;
+  gap: .5rem;
 }
 
 @media (orientation: portrait) {
