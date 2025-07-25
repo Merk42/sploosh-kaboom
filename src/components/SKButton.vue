@@ -45,7 +45,7 @@ span {
     border: 0;
     /* height: 10ch; */
     place-content: center;
-    border: 1px solid currentColor;
+    border: 1px solid Canvas;
 
 }
 

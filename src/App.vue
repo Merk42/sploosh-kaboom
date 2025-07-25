@@ -6,10 +6,26 @@ import GameOverModal from './components/GameOverModal.vue';
 
 import { computed, reactive, ref } from 'vue';
 import WaterRipples from './components/WaterRipples.vue';
-const config = reactive({
+
+import sploosh from '/sploosh.wav';
+import kaboom from '/kaboom.wav';
+import SettingsConfig from './components/SettingsConfig.vue';
+
+interface Config {
+  shake: boolean;
+  vibrate: boolean;
+  animate: boolean;
+  sound: boolean
+}
+
+const splooshAudio = new Audio(sploosh);
+const kaboomAudio = new Audio(kaboom);
+
+const config = reactive<Config>({
   shake: true,
   vibrate: true,
-  animate: true
+  animate: true,
+  sound: true
 })
 const winDialog = ref<InstanceType<typeof GameOverModal>>();
 const loseDialog = ref<InstanceType<typeof GameOverModal>>();
@@ -165,6 +181,9 @@ function pickOrientation() {
 }
 
 function hit(name: string) {
+  if (kaboomAudio && config.sound) {
+    kaboomAudio.play();
+  }
   if (config.vibrate) {
     navigator.vibrate(200);
   }
@@ -182,6 +201,9 @@ function hit(name: string) {
 }
 
 function miss() {
+  if (splooshAudio && config.sound) {
+    splooshAudio.play();
+  }
   ammo.value = ammo.value - 1;
   if (ammo.value <= 0) {
     // YOU LOSE
@@ -199,6 +221,25 @@ function gameEnd(result: 'win' | 'lose') {
     winDialog.value?.show();
   } else {
     loseDialog.value?.show();
+  }
+}
+
+function updateConfig(settings: Config) {
+  config.shake = settings.shake;
+  config.vibrate = settings.vibrate;
+  config.animate = settings.animate;
+  config.sound = settings.sound;
+  localStorage.setItem('config', JSON.stringify(config));
+}
+
+function loadConfig() {
+  const STRINGCONFIG = localStorage.getItem('config');
+  if (STRINGCONFIG) {
+    const PARSEDCONFIG: Config = JSON.parse(STRINGCONFIG);
+    config.shake = PARSEDCONFIG.shake;
+    config.vibrate = PARSEDCONFIG.vibrate;
+    config.animate = PARSEDCONFIG.animate;
+    config.sound = PARSEDCONFIG.sound;
   }
 }
 
@@ -232,6 +273,7 @@ function showSquids() {
     <div id="sq">
       <TargetDisplay :targets="displayTargets" />
       <p v-if="highscore">High Score: {{ highscore }}</p>
+      <SettingsConfig :settings="config" @save="updateConfig" />
     </div>
   </div>
   <GameOverModal ref="winDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
