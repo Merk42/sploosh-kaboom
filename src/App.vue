@@ -2,7 +2,7 @@
 import AmmoDisplay from './components/AmmoDisplay.vue';
 import SKButton from './components/SKButton.vue';
 import TargetDisplay from './components/TargetDisplay.vue';
-import GameOverModal from './components/GameOverModal.vue';
+import DialogModal from './components/DialogModal.vue';
 
 import { computed, reactive, ref } from 'vue';
 import WaterRipples from './components/WaterRipples.vue';
@@ -23,8 +23,8 @@ const config = reactive<Config>({
   animate: true,
   sound: true
 })
-const winDialog = ref<InstanceType<typeof GameOverModal>>();
-const loseDialog = ref<InstanceType<typeof GameOverModal>>();
+const winDialog = ref<InstanceType<typeof DialogModal>>();
+const loseDialog = ref<InstanceType<typeof DialogModal>>();
 let highscore: number = Number(localStorage.getItem('highscore')) ?? 0;
 const newhighscore = ref<boolean>(false);
 
@@ -270,14 +270,13 @@ function showSquids() {
       <SettingsConfig :settings="config" @save="updateConfig" />
     </div>
   </div>
-  <GameOverModal ref="winDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
-    <h1 style="text-align: center;">You Win!</h1>
+  <DialogModal ref="winDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()" title="You Win">
     <p><span v-if="newhighscore">New High </span>Score: {{ ammo }}</p>
     <p v-if="ammo === 15">PERFECT!</p>
-  </GameOverModal>
-  <GameOverModal ref="loseDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
-    <h1 style="text-align: center;">You Lose!</h1>
-  </GameOverModal>
+  </DialogModal>
+  <DialogModal ref="loseDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()" title="You Lose">
+    <p>Better luck next time!</p>
+  </DialogModal>
 </template>
 
 <style scoped>

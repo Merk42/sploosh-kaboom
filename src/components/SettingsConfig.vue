@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Config } from '@/types';
-import GameOverModal from './GameOverModal.vue';
+import DialogModal from './DialogModal.vue';
 import { reactive, ref } from 'vue';
 import CommonButton from './CommonButton.vue';
 const emit = defineEmits(['save']);
@@ -12,7 +12,7 @@ const props = defineProps<{
         sound: boolean
     }
 }>();
-const configDialog = ref<InstanceType<typeof GameOverModal>>();
+const configDialog = ref<InstanceType<typeof DialogModal>>();
 const settings = reactive<Config>({
     shake: true,
     vibrate: true,
@@ -41,13 +41,13 @@ function cancelChanges() {
 </script>
 <template>
     <CommonButton @click="openSettings()">settings</CommonButton>
-    <GameOverModal ref="configDialog" :confirm-text="'save'" :show-cancel="true" @confirm="saveChanges()"
-        @cancel="cancelChanges()">
+    <DialogModal ref="configDialog" :confirm-text="'save'" :show-cancel="true" @confirm="saveChanges()"
+        @cancel="cancelChanges()" title="settings">
         <label><input type="checkbox" v-model="settings.shake" /> shake screen on hit</label>
         <label><input type="checkbox" v-model="settings.vibrate" /> vibrate device on hit</label>
         <label><input type="checkbox" v-model="settings.animate" /> animated water</label>
         <label><input type="checkbox" v-model="settings.sound" /> sound</label>
-    </GameOverModal>
+    </DialogModal>
 </template>
 <style scoped>
 label {

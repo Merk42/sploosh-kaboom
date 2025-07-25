@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import CommonButton from './CommonButton.vue';
 
 const dialog = ref<HTMLDialogElement>();
@@ -25,6 +25,10 @@ const props = defineProps({
         type: String,
         default: '',
     },
+    title: {
+        type: String,
+        default: ''
+    }
 });
 
 const emit = defineEmits(['confirm', 'cancel']);
@@ -51,14 +55,19 @@ defineExpose({
     close: (returnVal?: string): void => dialog.value?.close(returnVal),
     visible,
 });
+
+const titleid = computed(() => {
+    return `${props.title.replace(" ", "")}-title`;
+})
 </script>
 
 <template>
-    <dialog ref="dialog" class="modal modal-bottom sm:modal-middle" @close="visible = false">
+    <dialog ref="dialog" class="modal modal-bottom sm:modal-middle" @close="visible = false" :aria-labelledby="titleid">
         <form v-if="visible" method="dialog" :class="{
             'modal-box rounded-none p-4': true,
             [props.classes]: props.classes,
         }">
+            <h1 :id="titleid">{{ props.title }}</h1>
             <slot />
 
             <div class="modal-action" v-if="!props.hideConfirm || props.showCancel">
@@ -88,6 +97,5 @@ dialog {
     border: 20px solid #496240;
     background-color: #855503;
     color: #FFF;
-    min-width: 60vw;
 }
 </style>
