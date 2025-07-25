@@ -30,10 +30,11 @@ const handleClick = (event: any) => {
 <style scoped>
 button {
     --_shadow: 4px;
-    background-image: url('/button.png');
-    background-size: 100% 100%;
+    border-image-source: url('/button.svg');
+    border-image-slice: 20 29 30 30;
+    border-image-width: 25px 30px 30px 26px;
+    border-image-repeat: stretch;
     background-color: transparent;
-    border: none;
     padding: .75rem 1rem;
     filter: drop-shadow(var(--_shadow) var(--_shadow) 0px rgba(0, 0, 0, 0.5));
     text-transform: capitalize;
