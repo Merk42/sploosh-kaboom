@@ -268,7 +268,7 @@ function showSquids() {
   </div>
   <GameOverModal ref="winDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
     <h1 style="text-align: center;">You Win!</h1>
-    <p v-if="newhighscore">New High Score: {{ ammo }}</p>
+    <p><span v-if="newhighscore">New High </span>Score: {{ ammo }}</p>
     <p v-if="ammo === 15">PERFECT!</p>
   </GameOverModal>
   <GameOverModal ref="loseDialog" :confirm-text="'new game'" @confirm="initGame()" @cancel="initGame()">
