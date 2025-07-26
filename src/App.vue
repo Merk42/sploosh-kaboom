@@ -187,6 +187,10 @@ function hit(name: string) {
     targets[name] = targets[name] - 1;
     if (left.value <= 0) {
       gameEnd('win');
+    } else {
+      if (ammo.value <= 0) {
+        gameEnd('lose')
+      }
     }
   }, 300);
 }
@@ -197,7 +201,6 @@ function miss() {
   }
   ammo.value = ammo.value - 1;
   if (ammo.value <= 0) {
-    // YOU LOSE
     gameEnd('lose')
   }
 }
