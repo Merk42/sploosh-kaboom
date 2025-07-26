@@ -93,16 +93,17 @@ const titleid = computed(() => {
 
 <style scoped>
 dialog {
+    --_shadow: 1rem;
     margin: auto;
     border-image-source: url('/dialog.svg');
     border-image-slice: 10 10 10 10 fill;
     border-image-width: 20px 20px 20px 20px;
     border-image-repeat: round;
     background-color: transparent;
-    color: #FFF;
     padding: 4rem;
     transition: transform .2s;
-    display: block
+    display: block;
+    filter: drop-shadow(var(--_shadow) var(--_shadow) 0px rgba(0, 0, 0, 0.5));
 }
 
 dialog {
@@ -111,5 +112,19 @@ dialog {
 
 dialog[open] {
     transform: translateY(0vh)
+}
+
+h1 {
+    text-align: center;
+    color: yellow;
+    -webkit-text-stroke: 1px black;
+    text-transform: uppercase;
+    padding: .5rem;
+    background-color: #3e7f2d;
+    margin-bottom: 1rem;
+}
+
+.modal-action {
+    margin-top: 1rem;
 }
 </style>
