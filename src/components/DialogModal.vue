@@ -94,8 +94,22 @@ const titleid = computed(() => {
 <style scoped>
 dialog {
     margin: auto;
-    border: 20px solid #496240;
-    background-color: #855503;
+    border-image-source: url('/dialog.svg');
+    border-image-slice: 10 10 10 10 fill;
+    border-image-width: 20px 20px 20px 20px;
+    border-image-repeat: round;
+    background-color: transparent;
     color: #FFF;
+    padding: 4rem;
+    transition: transform .2s;
+    display: block
+}
+
+dialog {
+    transform: translateY(-100vh)
+}
+
+dialog[open] {
+    transform: translateY(0vh)
 }
 </style>
