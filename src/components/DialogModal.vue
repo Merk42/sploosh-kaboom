@@ -67,10 +67,13 @@ const titleid = computed(() => {
             'modal-box rounded-none p-4': true,
             [props.classes]: props.classes,
         }">
-            <h1 :id="titleid"><span>{{ props.title }}</span></h1>
-            <slot />
-
-            <div class="modal-action" v-if="!props.hideConfirm || props.showCancel">
+            <header>
+                <h1 :id="titleid"><span>{{ props.title }}</span></h1>
+            </header>
+            <main>
+                <slot />
+            </main>
+            <footer v-if="!props.hideConfirm || props.showCancel">
                 <slot name="footer" />
                 <slot name="actionButtons">
                     <CommonButton v-if="props.showCancel" value="false" class="btn" @click.prevent="cancel">
@@ -81,7 +84,7 @@ const titleid = computed(() => {
                         {{ props.confirmText }}
                     </CommonButton>
                 </slot>
-            </div>
+            </footer>
         </form>
         <!--
         <form method="dialog" class="modal-backdrop">
@@ -94,13 +97,14 @@ const titleid = computed(() => {
 <style scoped>
 dialog {
     --_shadow: 1rem;
+    --_padding: 4rem;
     margin: auto;
     border-image-source: url('/dialog.svg');
     border-image-slice: 10 10 10 10 fill;
     border-image-width: 20px 20px 20px 20px;
     border-image-repeat: round;
     background-color: transparent;
-    padding: 4rem;
+    padding: var(--_padding);
     filter: drop-shadow(var(--_shadow) var(--_shadow) 0px rgba(0, 0, 0, 0.5));
 }
 
@@ -147,7 +151,19 @@ h1 span {
     background-color: #3e7f2d;
 }
 
-.modal-action {
+form {
+    max-height: calc(100dvh - calc(--_padding * 2));
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+main {
+    overflow: auto;
+}
+
+footer {
     margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
 }
 </style>
