@@ -101,7 +101,7 @@ dialog {
     margin: auto;
     border-image-source: url('/dialog.svg');
     border-image-slice: 10 10 10 10 fill;
-    border-image-width: 20px 20px 20px 20px;
+    border-image-width: 10px 10px 10px 10px;
     border-image-repeat: round;
     background-color: transparent;
     padding: var(--_padding);
