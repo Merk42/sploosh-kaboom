@@ -100,7 +100,7 @@ dialog {
     --_padding: 4rem;
     margin: auto;
     border-image-source: url('/dialog.svg');
-    border-image-slice: 10 10 10 10 fill;
+    border-image-slice: 12 12 12 12 fill;
     border-image-width: 10px 10px 10px 10px;
     border-image-repeat: round;
     background-color: transparent;
@@ -152,7 +152,7 @@ h1 span {
 }
 
 form {
-    max-height: calc(100dvh - calc(--_padding * 2));
+    max-height: calc(100dvh - calc(var(--_padding) * 2));
     display: grid;
     grid-template-rows: auto 1fr auto;
 }
