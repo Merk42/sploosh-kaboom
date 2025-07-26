@@ -63,11 +63,11 @@ const titleid = computed(() => {
 
 <template>
     <dialog ref="dialog" class="modal modal-bottom sm:modal-middle" @close="visible = false" :aria-labelledby="titleid">
-        <form v-if="visible" method="dialog" :class="{
+        <form method="dialog" :class="{
             'modal-box rounded-none p-4': true,
             [props.classes]: props.classes,
         }">
-            <h1 :id="titleid">{{ props.title }}</h1>
+            <h1 :id="titleid"><span>{{ props.title }}</span></h1>
             <slot />
 
             <div class="modal-action" v-if="!props.hideConfirm || props.showCancel">
@@ -101,27 +101,50 @@ dialog {
     border-image-repeat: round;
     background-color: transparent;
     padding: 4rem;
-    transition: transform .2s;
-    display: block;
     filter: drop-shadow(var(--_shadow) var(--_shadow) 0px rgba(0, 0, 0, 0.5));
 }
 
 dialog {
-    transform: translateY(-100vh)
+    animation: dismiss .4s;
 }
 
 dialog[open] {
-    transform: translateY(0vh)
+    animation: call .4s;
+}
+
+@keyframes call {
+    from {
+        transform: translateY(-100vh)
+    }
+
+    to {
+        transform: translateY(0vh)
+    }
+}
+
+@keyframes dismiss {
+    from {
+        display: block;
+        transform: translateY(0vh)
+    }
+
+    to {
+        display: none;
+        transform: translateY(-100vh)
+    }
 }
 
 h1 {
     text-align: center;
+    margin-bottom: 1rem;
+}
+
+h1 span {
     color: yellow;
     -webkit-text-stroke: 1px black;
     text-transform: uppercase;
     padding: .5rem;
     background-color: #3e7f2d;
-    margin-bottom: 1rem;
 }
 
 .modal-action {
