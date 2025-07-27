@@ -286,7 +286,12 @@ function showSquids() {
 #highscore {
   height: var(--_highscoreheight);
   text-align: right;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  border-image-source: url('/frame.svg');
+  border-image-slice: 90 70 70 70;
+  border-image-width: 45px 30px 30px 26px;
+  padding: .5rem 1.5rem;
+  color: #FFF;
 }
 
 #highscore .none {
