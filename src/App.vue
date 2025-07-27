@@ -283,6 +283,10 @@ function showSquids() {
 </template>
 
 <style scoped>
+#gameboard {
+  text-align: right
+}
+
 #highscore {
   height: var(--_highscoreheight);
   text-align: right;
@@ -292,6 +296,7 @@ function showSquids() {
   border-image-width: 45px 30px 30px 26px;
   padding: .5rem 1.5rem;
   color: #FFF;
+  display: inline-block;
 }
 
 #highscore .none {
