@@ -25,7 +25,7 @@ const config = reactive<Config>({
 })
 const winDialog = ref<InstanceType<typeof DialogModal>>();
 const loseDialog = ref<InstanceType<typeof DialogModal>>();
-let highscore: number = Number(localStorage.getItem('highscore')) ?? 0;
+const highscore = ref<number>(Number(localStorage.getItem('highscore')) ?? 0);
 const newhighscore = ref<boolean>(false);
 
 const shake = ref<boolean>(false);
@@ -65,7 +65,6 @@ const left = computed(() => {
 })
 
 function initGame() {
-  highscore = Number(localStorage.getItem('highscore')) ?? 0;
   newhighscore.value = false;
   gameover.value = false;
   round.value = round.value + 1;
@@ -208,9 +207,10 @@ function miss() {
 function gameEnd(result: 'win' | 'lose') {
   showSquids();
   if (result === 'win') {
-    if (ammo.value > Number(highscore)) {
+    if (ammo.value > highscore.value) {
       newhighscore.value = true;
-      localStorage.setItem('highscore', ammo.value.toString());
+      highscore.value = ammo.value;
+      localStorage.setItem('highscore', highscore.value.toString());
     }
     winDialog.value?.show();
   } else {
@@ -252,12 +252,12 @@ function showSquids() {
     </div>
     <div id="gameboard">
       <div id="highscore">
-        <p v-if="highscore">High Score: <span>{{ highscore }}</span></p>
+        <p :class="{ 'none': !highscore }" :aria-hidden="!highscore">High Score: <span>{{ highscore }}</span></p>
       </div>
       <div id="container" style="position: relative;">
         <div class="board" :class="{ 'gameover': gameover }">
-          <template v-for="y in boardSize">
-            <template v-for="x in boardSize">
+          <template v-for="y in boardSize" :key="y">
+            <template v-for="x in boardSize" :key="x">
               <SKButton :map="myReactiveMap" :x="x" :y="y" :round="round" @kaboom="hit" @sploosh="miss" />
             </template>
           </template>
@@ -289,6 +289,9 @@ function showSquids() {
   font-size: 1.5rem;
 }
 
+#highscore .none {
+  visibility: hidden;
+}
 
 #game {
   --_highscoreheight: 50px;
