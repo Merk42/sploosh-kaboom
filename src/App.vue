@@ -298,6 +298,13 @@ function showSquids() {
   visibility: hidden;
 }
 
+#highscore span {
+  background-image: url('/highscore.svg');
+  background-size: cover;
+  padding: .5rem;
+  color: #000;
+}
+
 #game {
   --_highscoreheight: 50px;
   display: grid;
