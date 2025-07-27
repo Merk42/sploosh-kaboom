@@ -315,7 +315,7 @@ function showSquids() {
 }
 
 #container {
-  --_border: 8px;
+  --_border: 45px 25px 25px 25px;
   display: grid;
   aspect-ratio: 1;
   margin: var(--_border)
@@ -325,8 +325,11 @@ function showSquids() {
   content: "";
   display: block;
   position: absolute;
-  inset: calc(var(--_border) * -1);
-  border: calc(var(--_border) * 2) solid brown;
+  inset: -45px -25px -25px -25px;
+  border-image-source: url('/frame.svg');
+  border-image-slice: 90 70 70 70;
+  border-image-width: 45px 30px 30px 26px;
+  border-image-repeat: stretch;
   z-index: 0;
   pointer-events: none;
 }
