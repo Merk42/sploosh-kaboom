@@ -251,9 +251,7 @@ function showSquids() {
       <AmmoDisplay :total="defaultAmmo" :remaining="ammo" />
     </div>
     <div id="gameboard">
-      <div id="highscore">
-        <p :class="{ 'none': !highscore }" :aria-hidden="!highscore">High Score: <span>{{ highscore }}</span></p>
-      </div>
+
       <div id="container" style="position: relative;">
         <div class="board" :class="{ 'gameover': gameover }">
           <template v-for="y in boardSize" :key="y">
@@ -266,6 +264,9 @@ function showSquids() {
           <SquidHints :displays="displays" />
         </div>
         <WaterRipples :animate="config.animate" />
+        <div id="highscore">
+          <p :class="{ 'none': !highscore }" :aria-hidden="!highscore">High Score: <span>{{ highscore }}</span></p>
+        </div>
       </div>
     </div>
     <div id="sq">
@@ -293,10 +294,15 @@ function showSquids() {
   font-size: 1.25rem;
   border-image-source: url('/frame.svg');
   border-image-slice: 90 70 70 70;
-  border-image-width: 45px 30px 30px 26px;
+  border-image-width: 10px 10px 10px 10px;
   padding: .5rem 1.5rem;
   color: #FFF;
   display: inline-block;
+  background-color: rgba(0, 0, 0, .25);
+  z-index: 1;
+  grid-area: 1 / 1;
+  pointer-events: none;
+  transform: translateY(-110%);
 }
 
 #highscore .none {
@@ -327,25 +333,26 @@ function showSquids() {
 
   .board,
   #container {
-    max-height: calc(100dvh - calc(var(--_border)*2) - var(--_highscoreheight));
+    max-height: calc(100dvh - var(--_bordertop) - var(--_borderelse))
   }
 }
 
 #container {
-  --_border: 45px 25px 25px 25px;
+  --_bordertop: 65px;
+  --_borderelse: 25px;
   display: grid;
   aspect-ratio: 1;
-  margin: var(--_border)
+  margin: var(--_bordertop) var(--_borderelse) var(--_borderelse) var(--_borderelse)
 }
 
 #container::after {
   content: "";
   display: block;
   position: absolute;
-  inset: -45px -25px -25px -25px;
+  inset: calc(var(--_bordertop) * -1) calc(var(--_borderelse) * -1) calc(var(--_borderelse) * -1) calc(var(--_borderelse) * -1);
   border-image-source: url('/frame.svg');
-  border-image-slice: 90 70 70 70;
-  border-image-width: 45px 30px 30px 26px;
+  border-image-slice: 100 75 85 75;
+  border-image-width: var(--_bordertop) var(--_borderelse) var(--_borderelse) var(--_borderelse);
   border-image-repeat: stretch;
   z-index: 0;
   pointer-events: none;
