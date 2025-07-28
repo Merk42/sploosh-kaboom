@@ -6,7 +6,7 @@ const props = defineProps<{
   remaining: number;
 }>();
 
-const used = computed(() => {
+const used = computed<number>(() => {
   return props.total - props.remaining;
 })
 </script>

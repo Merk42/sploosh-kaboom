@@ -55,7 +55,7 @@ const displayTargets = computed(() => {
   })
 })
 
-const left = computed(() => {
+const left = computed<number>(() => {
   const initialValue = 0;
   const sumWithInitial = Object.values(targets).reduce(
     (accumulator: number, currentValue: number) => accumulator + currentValue,
