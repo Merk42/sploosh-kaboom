@@ -21,7 +21,8 @@ const config = reactive<Config>({
   shake: true,
   vibrate: true,
   animate: true,
-  sound: true
+  sound: true,
+  theme: 'system'
 })
 const winDialog = ref<InstanceType<typeof DialogModal>>();
 const loseDialog = ref<InstanceType<typeof DialogModal>>();
@@ -223,6 +224,7 @@ function updateConfig(settings: Config) {
   config.vibrate = settings.vibrate;
   config.animate = settings.animate;
   config.sound = settings.sound;
+  config.theme = settings.theme;
   localStorage.setItem('config', JSON.stringify(config));
 }
 
@@ -234,6 +236,7 @@ function loadConfig() {
     config.vibrate = PARSEDCONFIG.vibrate;
     config.animate = PARSEDCONFIG.animate;
     config.sound = PARSEDCONFIG.sound;
+    config.theme = PARSEDCONFIG.theme ? PARSEDCONFIG.theme : 'system'
   }
 }
 

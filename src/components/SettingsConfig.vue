@@ -5,19 +5,15 @@ import { reactive, ref } from 'vue';
 import CommonButton from './CommonButton.vue';
 const emit = defineEmits(['save']);
 const props = defineProps<{
-  settings: {
-    shake: boolean,
-    vibrate: boolean,
-    animate: boolean,
-    sound: boolean
-  }
+  settings: Config
 }>();
 const configDialog = ref<InstanceType<typeof DialogModal>>();
 const dialogSettings = reactive<Config>({
   shake: true,
   vibrate: true,
   animate: true,
-  sound: true
+  sound: true,
+  theme: 'system'
 });
 
 function copyProps(): void {
@@ -25,6 +21,7 @@ function copyProps(): void {
   dialogSettings.vibrate = props.settings.vibrate;
   dialogSettings.animate = props.settings.animate;
   dialogSettings.sound = props.settings.sound;
+  dialogSettings.theme = props.settings.theme ? props.settings.theme : 'system';
 }
 
 function openSettings(): void {
@@ -47,12 +44,17 @@ function cancelChanges(): void {
     <label><input type="checkbox" class="sr-only" v-model="dialogSettings.vibrate" /> vibrate device on hit</label>
     <label><input type="checkbox" class="sr-only" v-model="dialogSettings.animate" /> animated water</label>
     <label><input type="checkbox" class="sr-only" v-model="dialogSettings.sound" /> sound</label>
+    <fieldset>
+      <legend>theme</legend>
+      <label><input type="radio" class="sr-only" v-model="dialogSettings.theme" value="system" /> system</label>
+      <label><input type="radio" class="sr-only" v-model="dialogSettings.theme" value="light" /> light</label>
+      <label><input type="radio" class="sr-only" v-model="dialogSettings.theme" value="dark" /> dark</label>
+    </fieldset>
   </DialogModal>
 </template>
 <style scoped>
 label {
   display: block;
-  padding: .25rem;
   border: 2px solid transparent;
   font-size: 1rem;
   margin: .25rem 0;
@@ -64,8 +66,18 @@ label:hover {
 }
 
 label:has(:checked) {
-  background-color: orange;
-  border: 2px solid yellow;
-  color: #000;
+  background-color: var(--settings-background-color);
+  border: 2px solid var(--settings-border-color);
+  color: var(--settings-text-color);
+}
+
+label:focus-within {
+  background-color: transparent;
+  border: 2px solid var(--settings-border-color);
+}
+
+
+fieldset {
+  display: flex;
 }
 </style>

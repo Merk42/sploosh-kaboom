@@ -36,7 +36,7 @@ const props = defineProps({
 .image {
   filter: url(#warp);
   background-image: url('/water.png');
-  background-color: #146aff;
+  background-color: var(--water-color);
   background-size: 20%;
   position: absolute;
   inset: 0;
@@ -46,7 +46,6 @@ const props = defineProps({
 
 @media (prefers-color-scheme: dark) {
   .image {
-    background-color: darkblue;
     opacity: .75;
   }
 }

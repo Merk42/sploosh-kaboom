@@ -143,11 +143,11 @@ h1 {
 }
 
 h1 span {
-  color: yellow;
+  color: var(--modal-header-text);
   -webkit-text-stroke: 1px black;
   text-transform: uppercase;
   padding: .5rem;
-  background-color: #3e7f2d;
+  background-color: var(--modal-header-background);
 }
 
 form {
